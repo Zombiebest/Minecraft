@@ -1,10 +1,13 @@
- package net.minecraft.src;
+package Cryingobsidian.Client;
  
- import java.util.Random;
+import java.util.Random;
+import Cryingobsidian.Common.mod_Cryingobsidian;
+import net.minecraft.src.Block;
+import net.minecraft.src.Material;
  
  public class BlockCryingobsidian extends Block
  {
-   protected BlockCryingobsidian(int i, int j)
+   public BlockCryingobsidian(int i, int j)
    {
      super(i, j, Material.rock);
    }
@@ -14,7 +17,7 @@
      int n = random.nextInt(10);
      if (n == 5)
      {
-       return mod_Cryingobsidian.Cryingobsidian.blockID;
+       return mod_Cryingobsidian.BlockCryingobsidian.blockID;
      }
      return 0;
    }
