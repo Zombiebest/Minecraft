@@ -6,8 +6,7 @@ public enum EnumToolMaterial
     STONE(1, 131, 4.0F, 1, 5),
     IRON(2, 250, 6.0F, 2, 14),
     EMERALD(3, 1561, 8.0F, 3, 10),
-    GOLD(0, 32, 12.0F, 0, 22),
-    CRYINGOBSIDIAN(3, 3122, 16.0F, 3, 20);
+    GOLD(0, 32, 12.0F, 0, 22);
 
     /**
      * The level of material this tool can harvest (3 = DIAMOND, 2 = IRON, 1 = STONE, 0 = IRON/GOLD)
@@ -77,5 +76,14 @@ public enum EnumToolMaterial
     public int getEnchantability()
     {
         return this.enchantability;
+    }
+
+    /**
+     * Return the crafting material for this tool material, used to determine the item that can be used to repair a tool
+     * with an anvil
+     */
+    public int getToolCraftingMaterial()
+    {
+        return this == WOOD ? Block.planks.blockID : (this == STONE ? Block.cobblestone.blockID : (this == GOLD ? Item.ingotGold.shiftedIndex : (this == IRON ? Item.ingotIron.shiftedIndex : (this == EMERALD ? Item.diamond.shiftedIndex : 0))));
     }
 }
