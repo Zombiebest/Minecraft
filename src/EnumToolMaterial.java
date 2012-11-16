@@ -1,12 +1,15 @@
 package net.minecraft.src;
 
+import Cryingobsidian.Common.*;
+
 public enum EnumToolMaterial
 {
     WOOD(0, 59, 2.0F, 0, 15),
     STONE(1, 131, 4.0F, 1, 5),
     IRON(2, 250, 6.0F, 2, 14),
     EMERALD(3, 1561, 8.0F, 3, 10),
-    GOLD(0, 32, 12.0F, 0, 22);
+    GOLD(0, 32, 12.0F, 0, 22),
+    Cryingobsidian(3, 2122, 8.0F, 3, 10);
 
     /**
      * The level of material this tool can harvest (3 = DIAMOND, 2 = IRON, 1 = STONE, 0 = IRON/GOLD)
@@ -84,6 +87,6 @@ public enum EnumToolMaterial
      */
     public int getToolCraftingMaterial()
     {
-        return this == WOOD ? Block.planks.blockID : (this == STONE ? Block.cobblestone.blockID : (this == GOLD ? Item.ingotGold.shiftedIndex : (this == IRON ? Item.ingotIron.shiftedIndex : (this == EMERALD ? Item.diamond.shiftedIndex : 0))));
+        return this == WOOD ? Block.planks.blockID : (this == STONE ? Block.cobblestone.blockID : (this == GOLD ? Item.ingotGold.shiftedIndex : (this == IRON ? Item.ingotIron.shiftedIndex : (this == EMERALD ? Item.diamond.shiftedIndex : (this == Cryingobsidian ? mod_Cryingobsidian.BlockCryingobsidian.blockID : 0)))));
     }
 }
