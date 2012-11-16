@@ -1,29 +1,38 @@
-package net.minecraft.src;
+package Cryingobsidian.Common;
 
-public class CryingobsidianTSword extends Item
+import net.minecraft.src.Block;
+import net.minecraft.src.CreativeTabs;
+import net.minecraft.src.Entity;
+import net.minecraft.src.EntityLiving;
+import net.minecraft.src.EntityPlayer;
+import net.minecraft.src.EnumAction;
+import net.minecraft.src.EnumToolMaterial;
+import net.minecraft.src.Item;
+import net.minecraft.src.ItemStack;
+import net.minecraft.src.ItemSword;
+import net.minecraft.src.Material;
+import net.minecraft.src.World;
+import cpw.mods.fml.common.Side;
+import cpw.mods.fml.common.asm.SideOnly;
+
+public class CryingobsidianTSword extends ItemSword
 {
-    private int weaponDamage;
+	private int weaponDamage;
     private final EnumToolMaterial toolMaterial;
-    private final ToolMaterial toolmaterial2;
 
     public CryingobsidianTSword(int par1, EnumToolMaterial par2EnumToolMaterial)
     {
-        super(par1);
+        super(par1, par2EnumToolMaterial);
         this.toolMaterial = par2EnumToolMaterial;
-        this.toolmaterial2 = null;
         this.maxStackSize = 1;
         this.setMaxDamage(par2EnumToolMaterial.getMaxUses());
+        this.setCreativeTab(CreativeTabs.tabCombat);
         this.weaponDamage = 4 + par2EnumToolMaterial.getDamageVsEntity();
     }
 
-    public CryingobsidianTSword(int var1, ToolMaterial var2)
+    public int func_82803_g()
     {
-        super(var1);
-        this.toolmaterial2 = var2;
-        this.toolMaterial = null;
-        this.maxStackSize = 1;
-        this.setMaxDamage(var2.maxUses);
-        this.weaponDamage = 4 + var2.damageVsEntity;
+        return this.toolMaterial.getDamageVsEntity();
     }
 
     /**
@@ -32,7 +41,15 @@ public class CryingobsidianTSword extends Item
      */
     public float getStrVsBlock(ItemStack par1ItemStack, Block par2Block)
     {
-        return par2Block.blockID != Block.web.blockID ? 1.5F : 15.0F;
+        if (par2Block.blockID == Block.web.blockID)
+        {
+            return 15.0F;
+        }
+        else
+        {
+            Material var3 = par2Block.blockMaterial;
+            return var3 != Material.plants && var3 != Material.vine && var3 != Material.field_76261_t && var3 != Material.leaves && var3 != Material.pumpkin ? 1.0F : 1.5F;
+        }
     }
 
     /**
@@ -45,9 +62,13 @@ public class CryingobsidianTSword extends Item
         return true;
     }
 
-    public boolean onBlockDestroyed(ItemStack par1ItemStack, int par2, int par3, int par4, int par5, EntityLiving par6EntityLiving)
+    public boolean onBlockDestroyed(ItemStack par1ItemStack, World par2World, int par3, int par4, int par5, int par6, EntityLiving par7EntityLiving)
     {
-        par1ItemStack.damageItem(2, par6EntityLiving);
+        if ((double)Block.blocksList[par3].getBlockHardness(par2World, par4, par5, par6) != 0.0D)
+        {
+            par1ItemStack.damageItem(2, par7EntityLiving);
+        }
+
         return true;
     }
 
@@ -58,6 +79,8 @@ public class CryingobsidianTSword extends Item
     {
         return this.weaponDamage;
     }
+
+    @SideOnly(Side.CLIENT)
 
     /**
      * Returns True is the item is renderer in full 3D when hold.
@@ -106,5 +129,18 @@ public class CryingobsidianTSword extends Item
     public int getItemEnchantability()
     {
         return this.toolMaterial.getEnchantability();
+    }
+
+    public String func_77825_f()
+    {
+        return this.toolMaterial.toString();
+    }
+
+    /**
+     * Return whether this item is repairable in an anvil.
+     */
+    public boolean getIsRepairable(ItemStack par1ItemStack, ItemStack par2ItemStack)
+    {
+        return this.toolMaterial.getToolCraftingMaterial() == par2ItemStack.itemID ? true : super.getIsRepairable(par1ItemStack, par2ItemStack);
     }
 }

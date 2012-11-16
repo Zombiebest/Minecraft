@@ -1,44 +1,67 @@
-/*    */ package net.minecraft.src;
-/*    */ 
-public class CryingobsidianTHoe extends Item
+package Cryingobsidian.Common;
+
+import cpw.mods.fml.common.Side;
+import cpw.mods.fml.common.asm.SideOnly;
+import net.minecraft.src.Block;
+import net.minecraft.src.CreativeTabs;
+import net.minecraft.src.EntityPlayer;
+import net.minecraft.src.EnumToolMaterial;
+import net.minecraft.src.ItemHoe;
+import net.minecraft.src.ItemStack;
+import net.minecraft.src.World;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.Event.Result;
+import net.minecraftforge.event.entity.player.UseHoeEvent;
+
+
+public class CryingobsidianTHoe extends ItemHoe
 {
+    protected EnumToolMaterial theToolMaterial;
+
     public CryingobsidianTHoe(int par1, EnumToolMaterial par2EnumToolMaterial)
     {
-        super(par1);
+        super(par1, par2EnumToolMaterial);
+        this.theToolMaterial = par2EnumToolMaterial;
         this.maxStackSize = 1;
         this.setMaxDamage(par2EnumToolMaterial.getMaxUses());
-    }
-
-    public CryingobsidianTHoe(int var1, ToolMaterial var2)
-    {
-        super(var1);
-        this.maxStackSize = 1;
-        this.setMaxDamage(var2.maxUses);
+        this.setCreativeTab(CreativeTabs.tabTools);
     }
 
     /**
      * Callback for item usage. If the item does something special on right clicking, he will have one of those. Return
-     * True if something happen and false if it don't. This is for ITEMS, not BLOCKS !
+     * True if something happen and false if it don't. This is for ITEMS, not BLOCKS
      */
-    public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, int par4, int par5, int par6, int par7)
+    public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, int par4, int par5, int par6, int par7, float par8, float par9, float par10)
     {
-        if (!par2EntityPlayer.canPlayerEdit(par4, par5, par6))
+        if (!par2EntityPlayer.func_82247_a(par4, par5, par6, par7, par1ItemStack))
         {
             return false;
         }
         else
         {
-            int var8 = par3World.getBlockId(par4, par5, par6);
-            int var9 = par3World.getBlockId(par4, par5 + 1, par6);
+            UseHoeEvent event = new UseHoeEvent(par2EntityPlayer, par1ItemStack, par3World, par4, par5, par6);
+            if (MinecraftForge.EVENT_BUS.post(event))
+            {
+                return false;
+            }
 
-            if ((par7 == 0 || var9 != 0 || var8 != Block.grass.blockID) && var8 != Block.dirt.blockID)
+            if (event.getResult() == Result.ALLOW)
+            {
+                par1ItemStack.damageItem(1, par2EntityPlayer);
+                return true;
+            }
+
+            int var11 = par3World.getBlockId(par4, par5, par6);
+            int var12 = par3World.getBlockId(par4, par5 + 1, par6);
+
+            if ((par7 == 0 || var12 != 0 || var11 != Block.grass.blockID) && var11 != Block.dirt.blockID)
             {
                 return false;
             }
             else
             {
-                Block var10 = Block.tilledField;
-                par3World.playSoundEffect((double)((float)par4 + 0.5F), (double)((float)par5 + 0.5F), (double)((float)par6 + 0.5F), var10.stepSound.getStepSound(), (var10.stepSound.getVolume() + 1.0F) / 2.0F, var10.stepSound.getPitch() * 0.8F);
+                Block var13 = Block.tilledField;
+                par3World.playSoundEffect((double)((float)par4 + 0.5F), (double)((float)par5 + 0.5F), (double)((float)par6 + 0.5F), var13.stepSound.getStepSound(), (var13.stepSound.getVolume() + 1.0F) / 2.0F, var13.stepSound.getPitch() * 0.8F);
 
                 if (par3World.isRemote)
                 {
@@ -46,7 +69,7 @@ public class CryingobsidianTHoe extends Item
                 }
                 else
                 {
-                    par3World.setBlockWithNotify(par4, par5, par6, var10.blockID);
+                    par3World.setBlockWithNotify(par4, par5, par6, var13.blockID);
                     par1ItemStack.damageItem(1, par2EntityPlayer);
                     return true;
                 }
@@ -54,11 +77,18 @@ public class CryingobsidianTHoe extends Item
         }
     }
 
+    @SideOnly(Side.CLIENT)
+
     /**
      * Returns True is the item is renderer in full 3D when hold.
      */
     public boolean isFull3D()
     {
         return true;
+    }
+
+    public String func_77842_f()
+    {
+        return this.theToolMaterial.toString();
     }
 }

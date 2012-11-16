@@ -1,26 +1,25 @@
-/*    */ package net.minecraft.src;
-/*    */ 
-/*    */ public class CryingobsidianTShovel extends ItemSpade
-/*    */ {
-/* 15 */   private static Block[] blocksEffectiveAgainst = { Block.grass, Block.dirt, Block.sand, Block.gravel, Block.snow, Block.blockSnow, Block.blockClay, 
-/* 16 */     Block.tilledField, Block.slowSand, Block.mycelium };
-/*    */ 
-/*    */   public CryingobsidianTShovel(int i, EnumToolMaterial enumtoolmaterial)
-/*    */   {
-/* 21 */     super(i, enumtoolmaterial);
-/*    */   }
-/*    */ 
-/*    */   public boolean canHarvestBlock(Block block)
-/*    */   {
-/* 27 */     if (block == Block.snow)
-/*    */     {
-/* 29 */       return true;
-/*    */     }
-/* 31 */     return block == Block.blockSnow;
-/*    */   }
-/*    */ }
+package Cryingobsidian.Common;
 
-/* Location:           C:\Users\thuresasbrother\Documents\Cryingobsidian.jar
- * Qualified Name:     net.minecraft.src.CryingobsidianTShovel
- * JD-Core Version:    0.6.0
- */
+import net.minecraft.src.Block;
+import net.minecraft.src.EnumToolMaterial;
+import net.minecraft.src.ItemSpade;
+
+ 
+public class CryingobsidianTShovel extends ItemSpade
+{
+	 /** an array of the blocks this spade is effective against */
+    public static final Block[] blocksEffectiveAgainst = new Block[] {Block.grass, Block.dirt, Block.sand, Block.gravel, Block.snow, Block.blockSnow, Block.blockClay, Block.tilledField, Block.slowSand, Block.mycelium};
+
+    public CryingobsidianTShovel(int par1, EnumToolMaterial par2EnumToolMaterial)
+    {
+        super(par1, par2EnumToolMaterial);
+    }
+
+    /**
+     * Returns if the item (tool) can harvest results from the block type.
+     */
+    public boolean canHarvestBlock(Block par1Block)
+    {
+        return par1Block == Block.snow ? true : par1Block == Block.blockSnow;
+    }
+}
