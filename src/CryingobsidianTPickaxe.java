@@ -1,10 +1,10 @@
-package Cryingobsidian.Common;
+package Cryingobsidian.client;
 
-import net.minecraft.src.Block;
-import net.minecraft.src.EnumToolMaterial;
-import net.minecraft.src.ItemStack;
-import net.minecraft.src.ItemTool;
-import net.minecraft.src.Material;
+import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
+import net.minecraft.item.EnumToolMaterial;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemTool;
  
 public class CryingobsidianTPickaxe extends ItemTool
 {

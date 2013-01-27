@@ -1,9 +1,9 @@
-package Cryingobsidian.Client;
+package Cryingobsidian.client;
  
 import java.util.Random;
-import Cryingobsidian.Common.mod_Cryingobsidian;
-import net.minecraft.src.Block;
-import net.minecraft.src.Material;
+import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
+import Cryingobsidian.common.mod_Cryingobsidian;
  
  public class BlockCryingobsidian extends Block
  {

@@ -1,8 +1,8 @@
-package Cryingobsidian.Common;
+package Cryingobsidian.client;
 
-import net.minecraft.src.Block;
-import net.minecraft.src.EnumToolMaterial;
-import net.minecraft.src.ItemSpade;
+import net.minecraft.block.Block;
+import net.minecraft.item.EnumToolMaterial;
+import net.minecraft.item.ItemSpade;
 
  
 public class CryingobsidianTShovel extends ItemSpade

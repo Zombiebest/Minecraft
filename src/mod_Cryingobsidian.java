@@ -1,16 +1,16 @@
-package Cryingobsidian.Common;
+package Cryingobsidian.common;
 
-import net.minecraft.src.Block;
-import net.minecraft.src.ItemAxe;
-import net.minecraft.src.ItemHoe;
-import net.minecraft.src.ItemPickaxe;
-import net.minecraft.src.ItemSpade;
-import net.minecraft.src.ItemSword;
-import Cryingobsidian.Client.BlockCryingobsidian;
+import net.minecraft.block.Block;
+import net.minecraft.item.ItemAxe;
+import net.minecraft.item.ItemHoe;
+import net.minecraft.item.ItemPickaxe;
+import net.minecraft.item.ItemSpade;
+import net.minecraft.item.ItemSword;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.Init;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
+import Cryingobsidian.client.BlockCryingobsidian;
 
 @Mod(modid="Zombie-Cryingobsidian", name="Cryingobsidian", version="Cryingobsidian private alpha v 0.0.1")
 @NetworkMod(clientSideRequired=true, serverSideRequired=true)
